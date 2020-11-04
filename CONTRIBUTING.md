@@ -27,7 +27,7 @@ Help people who are new to your project understand where they can be most helpfu
 >
 > Comments - add comments to some code that will help more people understand the code
 >
-> Plans - You can help me out by coding some things to get some of my planned things done! If you do, you can get a role on our [discord server](https://discord.gg/w8U3xWXCgU)!
+> Plans - You can help me out by coding some things to get some of my planned things done! If you do, you can get a role on our [discord server](https://discord.gg/TejQ4uqYVk)!
 
 > Working on your first Pull Request? You can learn how from this *free* series, [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github).
 >
@@ -45,7 +45,7 @@ Help people who are new to your project understand where they can be most helpfu
 >2. Do the changes in your fork
 >3. Make a pull request!
 
-> Small contributions such as fixing spelling errors can be submitted through our [discord server](https://discord.gg/w8U3xWXCgU) or a [issue](https://github.com/Taromaruu/Doggoscript/issues) 
+> Small contributions such as fixing spelling errors can be submitted through our [discord server](https://discord.gg/TejQ4uqYVk) or a [issue](https://github.com/Taromaruu/Doggoscript/issues) 
 >
 >As a rule of thumb, changes are obvious fixes if they do not introduce any new functionality or creative thinking. As long as the change does not affect functionality, some likely examples include the following:
 >* Spelling / grammar fixes
@@ -56,18 +56,18 @@ Help people who are new to your project understand where they can be most helpfu
 >* Moving source files from one directory or package to another
 
 # How to report a bug
-> If you find a security vulnerability, do NOT open an issue. Please dm Doggo#4340 or make a ticket in our [discord server](https://discord.gg/w8U3xWXCgU) instead.
+> If you find a security vulnerability, do NOT open an issue. Please dm Doggo#4340 or make a ticket in our [discord server](https://discord.gg/TejQ4uqYVk) instead.
 >
 > In order to determine whether you are dealing with a security issue, ask yourself these two questions:
 > * Can I access something that's not mine, or something I shouldn't have access to?
 > * Can I disable something for other people?
 >
-> If the answer to either of those two questions are "yes", then you're probably dealing with a security issue. Note that even if you answer "no" to both questions, you may still be dealing with a security issue, so if you're unsure, dm Doggo#4340 or make a ticket in our [discord server](https://discord.gg/w8U3xWXCgU).
+> If the answer to either of those two questions are "yes", then you're probably dealing with a security issue. Note that even if you answer "no" to both questions, you may still be dealing with a security issue, so if you're unsure, dm Doggo#4340 or make a ticket in our [discord server](https://discord.gg/TejQ4uqYVk).
 
 > When filing a bug report, please use our bug template.
 
 # How to suggest a feature or enhancement
-> * Go to the #suggestion channel in our [discord server](https://discord.gg/w8U3xWXCgU)
+> * Go to the #suggestion channel in our [discord server](https://discord.gg/TejQ4uqYVk)
 > * Make a issue and use our feature request template
 
 # Code review process
@@ -83,6 +83,6 @@ Who reviews it? Who needs to sign off before it’s accepted? When should a cont
 # Community
 If there are other channels you use besides GitHub to discuss contributions, mention them here. You can also list the author, maintainers, and/or contributors here, or set expectations for response time.
 
-> You can chat with us and the community in our [discord server](https://discord.gg/w8U3xWXCgU).
+> You can chat with us and the community in our [discord server](https://discord.gg/TejQ4uqYVk).
 
 Thanks for reading. Happy coding!
