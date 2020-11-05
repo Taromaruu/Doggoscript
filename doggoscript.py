@@ -1,11 +1,16 @@
 import basic
-import sys
+import sys, os
+import traceback
+import datetime
+import random
+import platform
+import winreg
+
+crash_messages = ["Uh oh...", "Looks like doggo has broke your hopes and dreams", "Boom.", "Look what you have done!", "Pog"]
 
 print("Doggoscript 0.1.5")
-print("Docs: https://docs.doggoscript.ml", end="\n\n")
+print("Docs: https://docs.doggoscript.ml")
 
-<<<<<<< Updated upstream
-=======
 def generate_traceback():
     rand = random.choice(crash_messages)
     Registry = winreg.ConnectRegistry(None, winreg.HKEY_LOCAL_MACHINE)
@@ -21,14 +26,13 @@ def generate_traceback():
         os.mkdir("crash_logs")
     with open(f"crash_logs/{y}.log", "w", encoding="utf-8") as f:
         f.write(
-f"""// {rand}
+f"""--- Begining of crash report ---
+// {rand}
 
 Time: {x}
 Description: {e}
 
---- Begining of crash report ---
 Full Traceback:\n\n{traceback.format_exc()}
---- Ending of crash report ---
 
 --- System Info ---
 Doggoscript Version: {ds_ver}
@@ -41,7 +45,6 @@ Architecture: {" ".join(platform.architecture())}
 """)
     print(f"\nDoggoscript has ran into a exception! Log {y}.log has been created.")
 
->>>>>>> Stashed changes
 while True:
     try:
         result, error = basic.run("<stdin>", f"run(\"{sys.argv[1]}\")")
@@ -61,21 +64,20 @@ while True:
             break
         except EOFError:
             break
-        result, error = basic.run("<stdin>", text)
+
+        try:
+            result, error = basic.run("<stdin>", text)
+        except BaseException as e:
+            generate_traceback()
+            break
 
         if error:
             print(error.as_string())
         elif result:
-            """
             if len(result.elements) == 1:
                 print(repr(result.elements[0]))
             else:
-<<<<<<< Updated upstream
                 print(repr(result))
-=======
-                print(repr(result))"""
-            print(result)
     except BaseException as e:
         generate_traceback()
         break
->>>>>>> Stashed changes

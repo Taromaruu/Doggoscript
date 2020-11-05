@@ -319,7 +319,6 @@ class Dictionary(Value):
     def __repr__(self):
         return '{' + '{}'.format(", ".join([repr(x) for x in self.elements])) + "}"
 
-
 class BaseFunction(Value):
     def __init__(self, name):
         super().__init__()
