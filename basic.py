@@ -1,6 +1,14 @@
+<<<<<<< Updated upstream
 #######################################
 # IMPORTS
 #######################################
+=======
+from doggoscript.lexer import *
+from doggoscript.parser import *
+from doggoscript import Context, SymbolTable
+from doggoscript.interpreter import *
+from doggoscript.error import *
+>>>>>>> Stashed changes
 
 from doggoscript.strings_with_arrows import *
 from easy_getch import getch
@@ -2426,16 +2434,23 @@ def run(fn, text):
     if error:
         return None, error
 
+    
+    
+
     # Generate AST
     parser = Parser(tokens)
     ast = parser.parse()
+
     if ast.error:
         return None, ast.error
 
+    print(ast.node)
+    return 0, None
+"""
     # Run program
     interpreter = Interpreter()
     context = Context('<program>')
     context.symbol_table = global_symbol_table
     result = interpreter.visit(ast.node, context)
 
-    return result.value, result.error
+    return result.value, result.error"""
