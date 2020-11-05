@@ -1,5 +1,6 @@
 from doggoscript.token import *
 from doggoscript import Position, DIGITS, LETTERS_DIGITS, LETTERS
+from doggoscript.error import *
 
 class Lexer:
     def __init__(self, fn, text):
@@ -56,6 +57,15 @@ class Lexer:
                 self.advance()
             elif self.current_char == ']':
                 tokens.append(Token(TT_RSQUARE, pos_start=self.pos))
+                self.advance()
+            elif self.current_char == '{':
+                tokens.append(Token(TT_LCURVE, pos_start=self.pos))
+                self.advance()
+            elif self.current_char == '}':
+                tokens.append(Token(TT_RCURVE, pos_start=self.pos))
+                self.advance()
+            elif self.current_char == ':':
+                tokens.append(Token(TT_COLON, pos_start=self.pos))
                 self.advance()
             elif self.current_char == '!':
                 token, error = self.make_not_equals()

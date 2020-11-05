@@ -1,0 +1,66 @@
+// Look what you have done!
+
+Time: 2020-11-05 12:22:35.237458
+Description: 
+
+--- Begining of crash report ---
+Full Traceback:
+
+Traceback (most recent call last):
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript.py", line 51, in <module>
+    result, error = basic.run("<stdin>", f"run(\"{sys.argv[1]}\")")
+IndexError: list index out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript.py", line 70, in <module>
+    result, error = basic.run("<stdin>", text)
+  File "C:\Users\Doggo\Documents\doggoscript\basic.py", line 53, in run
+    ast = parser.parse()
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 60, in parse
+    res = self.statements()
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 79, in statements
+    statement = res.register(self.statement())
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 133, in statement
+    expr = res.register(self.expr())
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 172, in expr
+    self.comp_expr, ((TT_KEYWORD, 'and'), (TT_KEYWORD, 'or'))))
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 910, in bin_op
+    left = res.register(func_a())
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 196, in comp_expr
+    self.arith_expr, (TT_EE, TT_NE, TT_LT, TT_GT, TT_LTE, TT_GTE)))
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 910, in bin_op
+    left = res.register(func_a())
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 207, in arith_expr
+    return self.bin_op(self.term, (TT_PLUS, TT_MINUS))
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 910, in bin_op
+    left = res.register(func_a())
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 210, in term
+    return self.bin_op(self.factor, (TT_MUL, TT_DIV))
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 910, in bin_op
+    left = res.register(func_a())
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 224, in factor
+    return self.power()
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 227, in power
+    return self.bin_op(self.call, (TT_POW, ), self.factor)
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 910, in bin_op
+    left = res.register(func_a())
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 231, in call
+    atom = res.register(self.atom())
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 312, in atom
+    dict_expr = res.register(self.dict_expr())
+  File "C:\Users\Doggo\Documents\doggoscript\doggoscript\parser.py", line 456, in dict_expr
+    if self.current_tok.type == TT_RCURVE:
+KeyboardInterrupt
+
+--- Ending of crash report ---
+
+--- System Info ---
+Doggoscript Version: 0.1.2
+Python Version: 3.7.6
+
+Node Name: Doggo-PC
+Platform: Windows-7-6.1.7601-SP1 AMD64
+Processor: AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD
+Architecture: 64bit WindowsPE

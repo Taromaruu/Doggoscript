@@ -1,5 +1,6 @@
 from doggoscript.nodes import *
 from doggoscript.token import *
+from doggoscript.error import *
 
 class ParseResult:
     def __init__(self):
@@ -307,6 +308,12 @@ class Parser:
                 return res
             return res.success(list_expr)
 
+        elif tok.type == TT_LCURVE:
+            dict_expr = res.register(self.dict_expr())
+            if res.error:
+                return res
+            return res.success(dict_expr)
+
         elif tok.matches(TT_KEYWORD, 'if'):
             if_expr = res.register(self.if_expr())
             if res.error:
@@ -380,6 +387,143 @@ class Parser:
 
         return res.success(ListNode(
             element_nodes,
+            pos_start,
+            self.current_tok.pos_end.copy()
+        ))
+
+    def dict_expr(self):
+        res = ParseResult()
+        dictionary = {}
+        element_nodes = []
+        pos_start = self.current_tok.pos_start.copy()
+        currKey = None
+
+        if self.current_tok.type != TT_LCURVE:
+            return res.failure(InvalidSyntaxError(
+                self.current_tok.pos_start, self.current_tok.pos_end,
+                "Expected '{'"
+            ))
+
+        res.register_advancement()
+        self.advance()
+
+        if self.current_tok.type == TT_RCURVE:
+            res.register_advancement()
+            self.advance()
+        else:
+            while True:
+                if not currKey:
+                    currKey = res.register(self.expr())
+                    res.register_advancement()
+                    self.advance()
+                    
+                    if res.error:
+                        return res
+
+                    print(f"Currkey: {currKey}")
+                    print(f"Dict: {dictionary}")
+                    print(f"currtoken: {self.current_tok}")
+                
+                if currKey and self.current_tok.type == TT_COLON:
+                    res.register_advancement()
+                    self.advance()
+
+                    if res.error:
+                        return res
+
+                    dictionary[currKey.tok.value] = res.register(self.expr()).tok.value
+
+                    res.register_advancement()
+                    self.advance()
+                    
+                    if res.error:
+                        return res
+
+                    print(f"Dict: {dictionary}")
+                
+                if currKey and self.current_tok.type == TT_COMMA:
+                    currKey = None
+
+                    res.register_advancement()
+                    self.advance()
+                    
+                    if res.error:
+                        return res
+                        break
+
+                    print(f"Dict: {dictionary}")
+
+                if self.current_tok.type == TT_RCURVE:
+                    break
+                
+            res.register_advancement()
+            self.advance()
+            
+            if res.error:
+                return res
+                
+
+            """
+            currKey = res.register(self.expr())
+            if not isinstance(currKey, StringNode):
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    f"Expected a String"
+                ))
+            print(f"Currkey type: {type(currKey)}")
+            if res.error:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    "Expected '}', 'var', 'if', 'for', 'while', 'fun', int, float, identifier, '+', '-', '(', '[', '{' or 'not'"
+                ))
+
+            while self.current_tok.type == TT_COLON:
+                res.register_advancement()
+                self.advance()
+
+                dictionary[currKey.tok.value] = res.register(self.expr()).tok.value
+                if res.error:
+                    return res
+                
+                currKey = None
+                print(f"Dict: {dictionary}")
+
+                if self.current_tok.type == TT_COMMA:
+                    res.register_advancement()
+                    self.advance
+
+            while self.current_tok.type == TT_COMMA:
+                res.register_advancement()
+                self.advance()
+
+                if res.error:
+                    return res
+
+                currKey = res.register(self.expr())
+                if not isinstance(currKey, StringNode):
+                    return res.failure(InvalidSyntaxError(
+                        self.current_tok.pos_start, self.current_tok.pos_end,
+                        f"Expected a String"
+                    ))
+                print(f"Currkey type: {type(currKey)}")
+
+                res.register_advancement()
+                self.advance()
+
+                if res.error:
+                    return res
+
+            if self.current_tok.type != TT_RCURVE:
+                return res.failure(InvalidSyntaxError(
+                    self.current_tok.pos_start, self.current_tok.pos_end,
+                    "Expected ',' or '}'"
+                ))
+
+            res.register_advancement()
+            self.advance()"""
+
+        return res.success(DictNode(
+            [],
             pos_start,
             self.current_tok.pos_end.copy()
         ))

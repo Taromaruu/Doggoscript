@@ -1,6 +1,7 @@
 import math, random, os
 from easy_getch import getch
 from doggoscript import RTResult, Context, SymbolTable
+from doggoscript.error import *
 
 class Value:
     def __init__(self):
@@ -301,6 +302,22 @@ class List(Value):
     def __repr__(self):
         return f'[{", ".join([repr(x) for x in self.elements])}]'
 
+class Dictionary(Value):
+    def __init__(self, elements):
+        super().__init__()
+        self.elements = elements
+
+    def copy(self):
+        copy = List(self.elements)
+        copy.set_pos(self.pos_start, self.pos_end)
+        copy.set_context(self.context)
+        return copy
+
+    def __str__(self):
+        return ", ".join([str(x) for x in self.elements])
+
+    def __repr__(self):
+        return '{' + '{}'.format(", ".join([repr(x) for x in self.elements])) + "}"
 
 class BaseFunction(Value):
     def __init__(self, name):
