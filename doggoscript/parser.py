@@ -393,8 +393,7 @@ class Parser:
 
     def dict_expr(self):
         res = ParseResult()
-        dictionary = {}
-        element_nodes = []
+        dictionary = []
         pos_start = self.current_tok.pos_start.copy()
         currKey = None
 
@@ -413,117 +412,47 @@ class Parser:
         else:
             while True:
                 if not currKey:
+                    # I dont know why I dont need to advance, and I dont need to know why
+                    # But it works, so im not complaining
                     currKey = res.register(self.expr())
-                    res.register_advancement()
-                    self.advance()
                     
-                    if res.error:
-                        return res
+                    if not currKey.tok.type == TT_STRING:
+                        return res.failure(InvalidSyntaxError(
+                            self.current_tok.pos_start, self.current_tok.pos_end,
+                            "Expected String as key"
+                        ))
+                else:
+                    if self.current_tok.type == TT_COLON:
+                        res.register_advancement()
+                        self.advance()
+                        
+                        if res.error:
+                            return res
 
-                    print(f"Currkey: {currKey}")
-                    print(f"Dict: {dictionary}")
-                    print(f"currtoken: {self.current_tok}")
-                
-                if currKey and self.current_tok.type == TT_COLON:
-                    res.register_advancement()
-                    self.advance()
-
-                    if res.error:
-                        return res
-
-                    dictionary[currKey.tok.value] = res.register(self.expr()).tok.value
-
-                    res.register_advancement()
-                    self.advance()
-                    
-                    if res.error:
-                        return res
-
-                    print(f"Dict: {dictionary}")
-                
-                if currKey and self.current_tok.type == TT_COMMA:
-                    currKey = None
-
-                    res.register_advancement()
-                    self.advance()
-                    
-                    if res.error:
-                        return res
+                        dictionary.append([currKey, res.register(self.expr())])
+                    elif self.current_tok.type == TT_RCURVE:
                         break
+                    elif self.current_tok.type == TT_COMMA:
+                        currKey = None
+                        res.register_advancement()
+                        self.advance()
+                        
+                        if res.error:
+                            return res
+                    else:
+                        res.failure(InvalidSyntaxError(
+                            self.current_tok.pos_start, self.current_tok.pos_end,
+                            "Expected String, ',' or '}'"
+                        ))
 
-                    print(f"Dict: {dictionary}")
-
-                if self.current_tok.type == TT_RCURVE:
-                    break
-                
             res.register_advancement()
             self.advance()
             
             if res.error:
                 return res
-                
-
-            """
-            currKey = res.register(self.expr())
-            if not isinstance(currKey, StringNode):
-                return res.failure(InvalidSyntaxError(
-                    self.current_tok.pos_start, self.current_tok.pos_end,
-                    f"Expected a String"
-                ))
-            print(f"Currkey type: {type(currKey)}")
-            if res.error:
-                return res.failure(InvalidSyntaxError(
-                    self.current_tok.pos_start, self.current_tok.pos_end,
-                    "Expected '}', 'var', 'if', 'for', 'while', 'fun', int, float, identifier, '+', '-', '(', '[', '{' or 'not'"
-                ))
-
-            while self.current_tok.type == TT_COLON:
-                res.register_advancement()
-                self.advance()
-
-                dictionary[currKey.tok.value] = res.register(self.expr()).tok.value
-                if res.error:
-                    return res
-                
-                currKey = None
-                print(f"Dict: {dictionary}")
-
-                if self.current_tok.type == TT_COMMA:
-                    res.register_advancement()
-                    self.advance
-
-            while self.current_tok.type == TT_COMMA:
-                res.register_advancement()
-                self.advance()
-
-                if res.error:
-                    return res
-
-                currKey = res.register(self.expr())
-                if not isinstance(currKey, StringNode):
-                    return res.failure(InvalidSyntaxError(
-                        self.current_tok.pos_start, self.current_tok.pos_end,
-                        f"Expected a String"
-                    ))
-                print(f"Currkey type: {type(currKey)}")
-
-                res.register_advancement()
-                self.advance()
-
-                if res.error:
-                    return res
-
-            if self.current_tok.type != TT_RCURVE:
-                return res.failure(InvalidSyntaxError(
-                    self.current_tok.pos_start, self.current_tok.pos_end,
-                    "Expected ',' or '}'"
-                ))
-
-            res.register_advancement()
-            self.advance()"""
 
         return res.success(DictNode(
-            [],
+            dictionary,
             pos_start,
             self.current_tok.pos_end.copy()
         ))

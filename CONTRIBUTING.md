@@ -19,7 +19,7 @@
 # Your First Contribution
 Help people who are new to your project understand where they can be most helpful. This is also a good time to let people know if you follow a label convention for flagging beginner issues.
 
-> Unsure where to begin contributing to Atom? You can start here:
+> Unsure where to begin contributing to Doggoscript? You can start here:
 >
 > Issues - you can look though our [issues](https://github.com/Taromaruu/Doggoscript/issues) and try to help some people out!
 > 

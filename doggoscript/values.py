@@ -2,6 +2,7 @@ import math, random, os
 from easy_getch import getch
 from doggoscript import RTResult, Context, SymbolTable
 from doggoscript.error import *
+import doggoscript
 
 class Value:
     def __init__(self):
@@ -216,6 +217,19 @@ class String(Value):
         else:
             return None, Value.illegal_operation(self, other)
 
+    def dived_by(self, other):
+        if isinstance(other, Number):
+            try:
+                return self.value[other.value], None
+            except:
+                return None, RTError(
+                    other.pos_start, other.pos_end,
+                    'Element at this index could not be retrieved from string because index is out of bounds',
+                    self.context
+                )
+        else:
+            return None, Value.illegal_operation(self, other)
+    
     def is_true(self):
         return len(self.value) > 0
 
@@ -245,7 +259,7 @@ class String(Value):
 
 
 class List(Value):
-    def __init__(self, elements):
+    def __init__(self, elements: list):
         super().__init__()
         self.elements = elements
 
@@ -303,21 +317,34 @@ class List(Value):
         return f'[{", ".join([repr(x) for x in self.elements])}]'
 
 class Dictionary(Value):
-    def __init__(self, elements):
+    def __init__(self, dictionary):
         super().__init__()
-        self.elements = elements
+        self.dictionary = dictionary
 
     def copy(self):
-        copy = List(self.elements)
+        copy = List(self.dictionary)
         copy.set_pos(self.pos_start, self.pos_end)
         copy.set_context(self.context)
         return copy
 
+    def dived_by(self, other):
+        if isinstance(other, String):
+            try:
+                return self.dictionary[other.value], None
+            except:
+                return None, RTError(
+                    other.pos_start, other.pos_end,
+                    'Element at this index could not be retrieved from dictionary because index is out of bounds',
+                    self.context
+                )
+        else:
+            return None, Value.illegal_operation(self, other)
+
     def __str__(self):
-        return ", ".join([str(x) for x in self.elements])
+        return repr(self.dictionary)
 
     def __repr__(self):
-        return '{' + '{}'.format(", ".join([repr(x) for x in self.elements])) + "}"
+        return repr(self.dictionary)
 
 class BaseFunction(Value):
     def __init__(self, name):
@@ -373,7 +400,7 @@ class Function(BaseFunction):
 
     def execute(self, args):
         res = RTResult()
-        interpreter = Interpreter()
+        interpreter = doggoscript.interpreter.Interpreter()
         exec_ctx = self.generate_new_context()
 
         res.register(self.check_and_populate_args(
@@ -731,6 +758,11 @@ class BuiltInFunction(BaseFunction):
 
     execute_bin.arg_names = ["value"]
 
+    def execute_doggoiscute(self, exec_ctx):
+        return RTResult().success(Dictionary({"isCute": 1}))
+
+    execute_doggoiscute.arg_names = []
+
 
 BuiltInFunction.print = BuiltInFunction("print")
 BuiltInFunction.print_ret = BuiltInFunction("print_ret")
@@ -756,3 +788,4 @@ BuiltInFunction.getch = BuiltInFunction("getch")
 BuiltInFunction.py_eval = BuiltInFunction("py_eval")
 BuiltInFunction.ord = BuiltInFunction("ord")
 BuiltInFunction.bin = BuiltInFunction("bin")
+BuiltInFunction.doggoiscute = BuiltInFunction("doggoiscute")

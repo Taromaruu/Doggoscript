@@ -2,10 +2,12 @@ from doggoscript.nodes import *
 from doggoscript import RTResult
 from doggoscript.values import *
 from doggoscript.error import RTError
+from doggoscript.token import *
 
 class Interpreter:
     def visit(self, node, context):
         method_name = f'visit_{type(node).__name__}'
+        print(f"method_name: {method_name}")
         method = getattr(self, method_name, self.no_visit_method)
         return method(node, context)
 
@@ -42,15 +44,17 @@ class Interpreter:
       
     def visit_DictNode(self, node, context):
         res = RTResult()
-        elements = []
+        dictionary = {}
 
         for element_node in node.element_nodes:
-            elements.append(res.register(self.visit(element_node, context)))
+            dictionary[res.register(self.visit(element_node[0], context))] = res.register(self.visit(element_node[1], context))
             if res.should_return():
                 return res
 
+        print(f"Dictionary: {dictionary}")
+
         return res.success(
-            Dictionary(elements).set_context(context).set_pos(
+            Dictionary(dictionary).set_context(context).set_pos(
                 node.pos_start, node.pos_end)
         )
 

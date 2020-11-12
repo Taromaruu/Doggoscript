@@ -37,12 +37,15 @@ global_symbol_table.set("getch", BuiltInFunction.getch)
 global_symbol_table.set("py_eval", BuiltInFunction.py_eval)
 global_symbol_table.set("ord", BuiltInFunction.ord)
 global_symbol_table.set("bin", BuiltInFunction.bin)
+global_symbol_table.set("doggoiscute", BuiltInFunction.doggoiscute)
 
 def run(fn, text):
     lexer = Lexer(fn, text)
     tokens, error = lexer.make_tokens()
     if error:
         return None, error
+
+    print(f"Tokens: {tokens}")
 
     # Generate AST
     parser = Parser(tokens)
