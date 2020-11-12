@@ -1,0 +1,102 @@
+{
+  "name": "doggoscript_editor",
+  "version": "1.0.5",
+  "main": "main.js",
+  "build": {
+    "files": [
+      "build"
+    ],
+    "description": "Create Doggoscript applications",
+    "main": "main.js",
+    "scripts": {
+      "start": "electron-forge start",
+      "package": "electron-forge package",
+      "make": "electron-forge make"
+    },
+    "keywords": [],
+    "author": "Doggo",
+    "license": "ISC",
+    "devDependencies": {
+      "@electron-forge/cli": "^6.0.0-beta.54",
+      "@electron-forge/maker-deb": "^6.0.0-beta.54",
+      "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+      "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+      "@electron-forge/maker-zip": "^6.0.0-beta.54",
+      "electron": "^10.1.4"
+    },
+    "dependencies": {
+      "electron-squirrel-startup": "^1.0.0",
+      "fs": "0.0.1-security"
+    },
+    "config": {
+      "forge": {
+        "packagerConfig": {},
+        "makers": [
+          {
+            "name": "@electron-forge/maker-squirrel",
+            "config": {
+              "name": "doggoscript_editor"
+            }
+          },
+          {
+            "name": "@electron-forge/maker-zip",
+            "platforms": [
+              "darwin"
+            ]
+          },
+          {
+            "name": "@electron-forge/maker-deb",
+            "config": {}
+          },
+          {
+            "name": "@electron-forge/maker-rpm",
+            "config": {}
+          }
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "electron": "^10.1.5"
+  },
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "doggoscript_editor"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
+}
