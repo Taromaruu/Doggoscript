@@ -14,3 +14,10 @@
 - [ ] Classes
 - [ ] Imports
 - [ ] Subcommands (like .join() for strings, .append for lists, etc)
+
+IDE requires electron and electron-forge. To install these, you can execute these commands:
+> `npm i --save-dev electron`
+>
+> `npx @electron-forge/cli import`
+
+Then use `npm start` to start the IDE
