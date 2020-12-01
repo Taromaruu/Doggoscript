@@ -8,7 +8,7 @@ import winreg
 
 crash_messages = ["Uh oh...", "Looks like doggo has broke your hopes and dreams", "Boom.", "Look what you have done!", "Pog"]
 
-print("Doggoscript 0.1.5")
+print("Doggoscript 0.1.3")
 print("Docs: https://docs.doggoscript.ml")
 
 def generate_traceback():

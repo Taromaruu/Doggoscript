@@ -2,6 +2,7 @@ from doggoscript.nodes import *
 from doggoscript import RTResult
 from doggoscript.values import *
 from doggoscript.error import RTError
+from doggoscript.token import *
 
 class Interpreter:
     def visit(self, node, context):

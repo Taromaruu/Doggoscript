@@ -37,6 +37,10 @@ global_symbol_table.set("getch", BuiltInFunction.getch)
 global_symbol_table.set("py_eval", BuiltInFunction.py_eval)
 global_symbol_table.set("ord", BuiltInFunction.ord)
 global_symbol_table.set("bin", BuiltInFunction.bin)
+global_symbol_table.set("murgn", BuiltInFunction.murgn)
+global_symbol_table.set("lag", BuiltInFunction.lag)
+global_symbol_table.set("global", BuiltInFunction._global)
+global_symbol_table.set("reverse", BuiltInFunction.reverse)
 
 def run(fn, text):
     lexer = Lexer(fn, text)

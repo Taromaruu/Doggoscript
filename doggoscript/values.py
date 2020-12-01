@@ -216,6 +216,19 @@ class String(Value):
         else:
             return None, Value.illegal_operation(self, other)
 
+    def dived_by(self, other):
+        if isinstance(other, Number):
+            try:
+                return String(self.value[other.value]), None
+            except:
+                return None, RTError(
+                    other.pos_start, other.pos_end,
+                    'Element at this index could not be retrieved from string because index is out of bounds',
+                    self.context
+                )
+        else:
+            return None, Value.illegal_operation(self, other)
+
     def is_true(self):
         return len(self.value) > 0
 
@@ -731,6 +744,43 @@ class BuiltInFunction(BaseFunction):
 
     execute_bin.arg_names = ["value"]
 
+    def execute_murgn(self, exec_ctx):
+        return RTResult().success(String("is gay."))
+
+    execute_murgn.arg_names = []
+
+    def execute_lag(self, exec_ctx):
+        return RTResult().success(String("LanguageArtsGrade"))
+
+    execute_lag.arg_names = []
+
+    def execute_global(self, exec_ctx):
+        _vars = []
+        for x in exec_ctx.symbol_table.parent.symbols:
+            _vars.append(x)
+
+        return RTResult().success(List(_vars))
+
+    execute_global.arg_names = []
+
+    def execute_reverse(self, exec_ctx):
+        value = exec_ctx.symbol_table.get("value")
+        
+        if isinstance(value, List):
+            value.elements.reverse()
+            return RTResult().success(List(value.elements))
+        elif isinstance(value, String):
+            return RTResult().success(String(value.value[::-1]))
+        elif isinstance(value, Number):
+            return RTResult().success(Number(int(str(value.value)[::-1])))
+        
+        return RTResult().failure(RTError(
+            self.pos_start, self.pos_end,
+            "Value is not string, number, or list",
+            exec_ctx
+        ))
+
+    execute_reverse.arg_names = ["value"]
 
 BuiltInFunction.print = BuiltInFunction("print")
 BuiltInFunction.print_ret = BuiltInFunction("print_ret")
@@ -756,3 +806,7 @@ BuiltInFunction.getch = BuiltInFunction("getch")
 BuiltInFunction.py_eval = BuiltInFunction("py_eval")
 BuiltInFunction.ord = BuiltInFunction("ord")
 BuiltInFunction.bin = BuiltInFunction("bin")
+BuiltInFunction.murgn = BuiltInFunction("murgn")
+BuiltInFunction.lag = BuiltInFunction("lag")
+BuiltInFunction._global = BuiltInFunction("global")
+BuiltInFunction.reverse = BuiltInFunction("reverse")
