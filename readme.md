@@ -1,4 +1,9 @@
 # Doggoscript
+[![Discord](https://img.shields.io/discord/773612484640112690?logo=discord&color=7289DA)](https://discord.gg/TejQ4uqYVk)
+[![GitHub all releases](https://img.shields.io/github/downloads/Taromaruu/Doggoscript/total)](https://github.com/Taromaruu/Doggoscript/releases)
+[![GitHub issues](https://img.shields.io/github/issues/Taromaruu/Doggoscript)](https://github.com/Taromaruu/Doggoscript/issues)
+[![GitHub](https://img.shields.io/github/license/Taromaruu/Doggoscript)](https://github.com/Taromaruu/Doggoscript/blob/master/LICENSE)
+[![GitHub contributors](https://img.shields.io/github/contributors/Taromaruu/Doggoscript)](https://github.com/Taromaruu/Doggoscript/graphs/contributors)
 
 ### The repo where I keep Doggoscirpt. Issues and pull requests welcome.
 
