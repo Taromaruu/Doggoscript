@@ -4,21 +4,30 @@ import traceback
 import datetime
 import random
 import platform
-import winreg
+import json
+try:
+    import winreg
+    winreg_import = True
+except:
+    winreg_import = False
 
 crash_messages = ["Uh oh...", "Looks like doggo has broke your hopes and dreams", "Boom.", "Look what you have done!", "Pog"]
 
-print("Doggoscript 0.1.5")
+print("Doggoscript 0.1.3")
 print("Docs: https://docs.doggoscript.ml")
 
 def generate_traceback():
     rand = random.choice(crash_messages)
-    Registry = winreg.ConnectRegistry(None, winreg.HKEY_LOCAL_MACHINE)
-    with winreg.OpenKey(Registry, "SOFTWARE\Doggo\Doggoscript") as k:
-        try:
-            ds_ver = winreg.QueryValueEx(k, "Version")[0]
-        except FileNotFoundError:
-            ds_ver = "Key not found in reg"
+    if winreg_import:
+        Registry = winreg.ConnectRegistry(None, winreg.HKEY_LOCAL_MACHINE)
+        with winreg.OpenKey(Registry, "SOFTWARE\Doggo\Doggoscript") as k:
+            try:
+                ds_ver = winreg.QueryValueEx(k, "Version")[0]
+            except FileNotFoundError:
+                ds_ver = "Key not found in reg"
+    else:
+        with open("config.json", "r") as f:
+            ds_ver = json.load()['ver']
     
     x = datetime.datetime.now()
     y = x.strftime("%B-%d-%Y %I-%M-%S %p")

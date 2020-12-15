@@ -44,7 +44,11 @@ def run(fn, text):
     if error:
         return None, error
 
-    # Generate AST
+    print(tokens)
+
+    return 0, None
+
+    """# Generate AST
     parser = Parser(tokens)
     ast = parser.parse()
     if ast.error:
@@ -56,4 +60,4 @@ def run(fn, text):
     context.symbol_table = global_symbol_table
     result = interpreter.visit(ast.node, context)
 
-    return result.value, result.error
+    return result.value, result.error"""

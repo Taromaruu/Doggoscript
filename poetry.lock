@@ -1,0 +1,16 @@
+[[package]]
+category = "main"
+description = "Easily get a single character"
+name = "easy-getch"
+optional = false
+python-versions = "*"
+version = "1.0.6"
+
+[metadata]
+content-hash = "754771967149eb9c0e8debbbf9aa50050d6a6529dd91f76d50355610ada6e009"
+python-versions = "^3.8"
+
+[metadata.files]
+easy-getch = [
+    {file = "easy_getch-1.0.6.tar.gz", hash = "sha256:3cf78a098a852fba8f7701a935c9f72523dc60c1fb8605e77361ffea672e4613"},
+]
