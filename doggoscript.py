@@ -14,7 +14,7 @@ print("Docs: https://docs.doggoscript.ml")
 def generate_traceback():
     rand = random.choice(crash_messages)
     Registry = winreg.ConnectRegistry(None, winreg.HKEY_LOCAL_MACHINE)
-    with winreg.OpenKey(Registry, "SOFTWARE\Doggo\Doggoscript") as k:
+    with winreg.OpenKey(Registry, "SOFTWARE\\Doggo\\Doggoscript") as k:
         try:
             ds_ver = winreg.QueryValueEx(k, "Version")[0]
         except FileNotFoundError:
