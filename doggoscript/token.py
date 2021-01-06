@@ -44,8 +44,7 @@ KEYWORDS = [
     'end',
     'return',
     'continue',
-    'break',
-    'in',
+    'break'
 ]
 
 

@@ -15,7 +15,7 @@ function openFile(win) {
             name: "Doggoscript File",
             extensions: ["ds"]
         }]
-    });
+    }); 
 
     if (!files) {
         return;
